@@ -50,7 +50,7 @@ public abstract class Account {
         System.out.println("Deposit successfully!");
     }
 
-    public void withddraw(double amount){
+    public void withdraw(double amount){
         if(amount <= 0){
             System.out.println("Withdraw must be greater than zero");
             return;
@@ -96,4 +96,7 @@ public abstract class Account {
 
     public abstract  double calculateMonthBenefit();
     public abstract double calculateLoanOffer();
+
+
+
 }

@@ -10,7 +10,7 @@ public abstract class Account {
      private  double totalDeposits;
      private  double totalWithdrawals;
 
-     private List<String> activity = new ArrayList<>();
+     private List<Transaction> activity = new ArrayList<>();
 
     public Account(String accountNumber, String accountHolderName, double balance) {
 
@@ -22,7 +22,7 @@ public abstract class Account {
         this.accountHolderName = accountHolderName;
         this.balance = balance;
 
-        activity.add("Account opened with "+ balance + "  RwF");
+        activity.add(new Transaction("Account opened: ",balance));
     }
 
     public String getAccountNumber() {
@@ -46,8 +46,7 @@ public abstract class Account {
         balance += amount;
         totalDeposits +=amount;
 
-        activity.add("Deposited: " +amount +" RWF");
-
+        activity.add(new Transaction("Deposit" , amount));
         System.out.println("Deposit successfully!");
     }
 
@@ -64,7 +63,7 @@ public abstract class Account {
         balance -= amount;
         totalWithdrawals += amount;
 
-        activity.add("Withdraw: "+ amount +" RWF");
+        activity.add(new Transaction("Withdrawal" ,amount));
         System.out.println("Withdrawal successfully!");
 
     }
@@ -83,9 +82,16 @@ public abstract class Account {
     public void viewActivity(){
         System.out.println("\n   account activity");
 
-        for(String record : activity){
-            System.out.println(record);
+        for(Transaction transaction : activity){
+            transaction.display();
         }
+    }
+    protected double addMonthlyBenefits(double rate){
+        double benefit = balance * rate;
+        balance +=benefit;
+
+        activity.add(new Transaction("Monthly Benefit", benefit));
+        return  benefit;
     }
 
     public abstract  double calculateMonthBenefit();
